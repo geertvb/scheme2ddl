@@ -2,15 +2,18 @@ package com.googlecode.scheme2ddl;
 
 import com.googlecode.scheme2ddl.aspect.StatAspect;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.*;
 import org.springframework.transaction.PlatformTransactionManager;
 
 //@SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = Application.class)
+@ComponentScan(basePackageClasses = Application.class, scopedProxy = ScopedProxyMode.INTERFACES)
 @ImportResource("scheme2ddl.config.xml")
 public class Application {
 
@@ -24,8 +27,17 @@ public class Application {
         return new StatAspect();
     }
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext context = new SpringApplicationBuilder()
+                .showBanner(false)
+                .addCommandLineProperties(true)
+                .sources(Application.class)
+                .run(args);
     }
 
 }

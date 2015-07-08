@@ -11,7 +11,6 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
  * @since Date: 17.10.2012
  */
 @Component("reader")
-@Scope(value = "step", proxyMode = ScopedProxyMode.INTERFACES)
+@Scope(value = "step")
 public class UserObjectReader implements ItemReader<UserObject> {
 
     private static final Log log = LogFactory.getLog(UserObjectReader.class);
@@ -40,8 +39,8 @@ public class UserObjectReader implements ItemReader<UserObject> {
     //TODO ${processConstraint}
     protected boolean processConstraint = false;
 
-//    @Value("#{jobParameters['schemaName']}")
-    protected String schemaName = "ACTIVITI";
+    @Value("#{jobParameters['schemaName'] ?: 'ACTIVITI'}")
+    protected String schemaName;
 
 
     public synchronized UserObject read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
@@ -64,7 +63,7 @@ public class UserObjectReader implements ItemReader<UserObject> {
         if (processDmbsJobs) {
             list.addAll(userObjectDao.findDmbsJobs());
         }
-        if (processConstraint){
+        if (processConstraint) {
             list.addAll(userObjectDao.findConstaints());
         }
 

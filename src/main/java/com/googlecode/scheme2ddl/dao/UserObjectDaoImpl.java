@@ -3,17 +3,13 @@ package com.googlecode.scheme2ddl.dao;
 import com.googlecode.scheme2ddl.domain.UserObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -29,7 +25,7 @@ import static com.googlecode.scheme2ddl.utils.TypeNamesUtil.map2TypeForDBMS;
  * @since Date: 17.10.2012
  */
 @Repository("userObjectDao")
-@Scope(value = "step", proxyMode = ScopedProxyMode.INTERFACES)
+@Scope(value = "step")
 public class UserObjectDaoImpl extends AbstractDao implements UserObjectDao {
 
     private static final Log log = LogFactory.getLog(UserObjectDaoImpl.class);
@@ -37,20 +33,20 @@ public class UserObjectDaoImpl extends AbstractDao implements UserObjectDao {
     @Resource(name = "transformParams_for_dbms_metadata")
     private Map<String, Boolean> transformParams;
 
-//    @Value("#{jobParameters['schemaName']}")
+    @Value("#{jobParameters['schemaName'] ?: 'ACTIVITI'}")
     private String schemaName;
 
-//    @Value("#{jobParameters['launchedByDBA']}")
-    private boolean isLaunchedByDBA = false;
+    @Value("#{jobParameters['launchedByDBA'] ?: false}")
+    private boolean isLaunchedByDBA;
 
-//    @Value("#{jobParameters['objectFilter']}")
-    private String objectFilter="%";
+    @Value("#{jobParameters['objectFilter'] ?: '%'}")
+    private String objectFilter;
 
-//    @Value("#{jobParameters['typeFilter']}")
-    private String typeFilter="";
+    @Value("#{jobParameters['typeFilter'] ?: ''}")
+    private String typeFilter;
 
-//    @Value("#{jobParameters['typeFilterMode']}")
-    private String typeFilterMode = "include";
+    @Value("#{jobParameters['typeFilterMode'] ?: 'include'}")
+    private String typeFilterMode;
 
     public List<UserObject> findListForProccessing() {
         String sql;

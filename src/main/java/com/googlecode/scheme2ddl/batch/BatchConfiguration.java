@@ -83,7 +83,7 @@ public class BatchConfiguration {
 
     @Bean
     public JobLauncherCommandLineRunner jobLauncherCommandLineRunner() {
-        return new JobLauncherCommandLineRunner(
+        return new CustomJobLauncherCommandLineRunner(
                 jobLauncher(),
                 jobExplorer());
     }
