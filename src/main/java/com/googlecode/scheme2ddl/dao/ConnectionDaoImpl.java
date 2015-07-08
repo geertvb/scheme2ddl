@@ -2,6 +2,7 @@ package com.googlecode.scheme2ddl.dao;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  * @author A_Reshetnikov
  * @since Date: 23.07.2013
  */
-public class ConnectionDaoImpl extends JdbcDaoSupport implements ConnectionDao {
+@Repository("connectionDao")
+public class ConnectionDaoImpl extends AbstractDao implements ConnectionDao {
 
     public boolean isConnectionAvailable() {
         try {

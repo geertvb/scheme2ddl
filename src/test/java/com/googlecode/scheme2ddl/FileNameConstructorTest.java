@@ -1,18 +1,17 @@
 package com.googlecode.scheme2ddl;
 
 import com.googlecode.scheme2ddl.domain.UserObject;
+import com.googlecode.scheme2ddl.utils.FileNameConstructor;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.googlecode.scheme2ddl.FileNameConstructor.abbreviate;
-import static com.googlecode.scheme2ddl.FileNameConstructor.pluralaze;
+import static com.googlecode.scheme2ddl.utils.FileNameConstructor.abbreviate;
+import static com.googlecode.scheme2ddl.utils.FileNameConstructor.pluralaze;
 import static org.junit.Assert.assertEquals;
 
 /**

@@ -1,5 +1,6 @@
 package com.googlecode.scheme2ddl;
 
+import com.googlecode.scheme2ddl.utils.DDLFormatter;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

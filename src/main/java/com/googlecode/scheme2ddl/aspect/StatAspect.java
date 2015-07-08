@@ -27,7 +27,7 @@ public class StatAspect {
         this.listSkippedBySQLError = Collections.synchronizedList(new ArrayList<UserObject>());
     }
 
-    @AfterReturning(pointcut = "execution(* com.googlecode.scheme2ddl.UserObjectProcessor.process(..)) &&"
+    @AfterReturning(pointcut = "execution(* com.googlecode.scheme2ddl.batch.UserObjectProcessor.process(..)) &&"
             + "args(userObject)",
             returning = "retVal")
     public void exludedByConfig(UserObject userObject, Object retVal) {
@@ -36,7 +36,7 @@ public class StatAspect {
         }
     }
 
-    @AfterThrowing(pointcut = "execution(* com.googlecode.scheme2ddl.UserObjectProcessor.process(..)) &&"
+    @AfterThrowing(pointcut = "execution(* com.googlecode.scheme2ddl.batch.UserObjectProcessor.process(..)) &&"
             + "args(userObject)",
             throwing = "ex")
     public void skippedBySQLError(UserObject userObject, CannotGetDDLException ex) {

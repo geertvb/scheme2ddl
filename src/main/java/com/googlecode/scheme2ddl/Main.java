@@ -1,6 +1,11 @@
 package com.googlecode.scheme2ddl;
 
+import com.googlecode.scheme2ddl.batch.UserObjectJobRunner;
+import com.googlecode.scheme2ddl.batch.UserObjectProcessor;
+import com.googlecode.scheme2ddl.batch.UserObjectReader;
+import com.googlecode.scheme2ddl.batch.UserObjectWriter;
 import com.googlecode.scheme2ddl.dao.ConnectionDao;
+import com.googlecode.scheme2ddl.utils.FileNameConstructor;
 import oracle.jdbc.pool.OracleDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +48,7 @@ public class Main {
 	private static String typeFilter = "";
 	private static String typeFilterMode = "include";
 
-    public static void main(String[] args) throws Exception {
+    public static void oldMain(String[] args) throws Exception {
 		typeFilterMode = "include"; //default is to include any type filter
 		
         collectArgs(args);
